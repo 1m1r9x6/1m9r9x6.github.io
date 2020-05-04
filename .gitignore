@@ -1,3 +1,4 @@
 ./gitignore
 ./id_rsa.pub
 ./id_rsa
+./node_modules
