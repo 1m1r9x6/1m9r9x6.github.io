@@ -181,6 +181,7 @@ body{
     display:flex;
     width:100%;
 }
+.set-indicator-start,
 .set-indicator{
     display:flex;
     width:30%;
