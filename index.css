@@ -1,0 +1,228 @@
+:root {
+    --main-bg-color: #ffffff;    
+    --main-el-bg-color: #ffffff;
+    --main-el-b-color: #5ebfb7;
+    --main-el-f-color:#5ebfb7;
+}
+
+body{
+    overflow:hidden;
+    margin:0 0 0 0;
+    padding:0 0 0 0;
+}
+.virus-hack-app-sign-in{
+    width:100%;
+    min-height:100%;
+    max-height:100%;
+    background-color:var(--main-bg-color);
+    flex-direction: column;
+}
+.virus-hack-app{
+    width:100%;
+    min-height:100%;
+    max-height:100%;
+    background-color:var(--main-bg-color);
+    flex-direction: column;
+}
+.complite-color{
+    border-style:solid;
+    border-radius:6px;
+    background-color:grey;
+    border-color:lightgrey;
+    color:darkgrey;
+}
+.standart-color{
+    border-style:solid;
+    border-radius:6px;
+    background-color:var(--main-el-bg-color);
+    border-color:var(--main-el-b-color);
+    color:var(--main-el-f-color);
+}
+
+/* components */
+.header{
+    position:relative;
+    min-height:40px;
+    max-height:40px;
+    min-width:Calc(100% - 5px);
+    font-size:16px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    max-height:24px;
+}
+
+.content{
+    width:100%;
+    position:relative;
+    display:flex;
+    min-height:Calc(100% - 120px);
+    max-height:Calc(100% - 120px);
+    flex-direction: column;
+}
+
+.downmenu{
+    display:flex;
+    flex-direction: row;
+    position:relative;
+    min-height:80px;
+    max-height:80px;
+    width:100%;
+}
+
+.button{
+    width:Calc(100% - 1px);
+    font-size:16px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    max-height:24px;
+}
+
+.menu-btn{
+    width:100%;
+    min-height:100%;
+    font-size:20px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border-style:solid;
+    border-radius:6px;
+    background-color:var(--main-el-bg-color);
+    border-color:var(--main-el-b-color);
+    color:var(--main-el-f-color);
+}
+
+.menu-btn.menu-btn_active{
+    background-color:var(--main-el-b-color);
+    border-color:var(--main-el-bg-color);
+    color:var(--main-el-bg-color);
+}
+
+.menu-btn span{
+    font-size:40px;
+}
+
+.sub-menu{
+    display: none;
+}
+.sub-menu.sub-menu_active{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height:100%;
+    max-height:100%;
+}
+.sub-menu-list_alt{
+    flex-direction: column-reverse!important;
+}
+.card-to-do{
+    display: flex;
+    flex-direction: column;
+    width:Calc(100% - 5px);
+}
+.card-to-do__block{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+}
+.card-to-do__more{
+    display: flex;
+    flex-direction: column;
+    width:100%;
+}
+.card-to-do__learn-more{
+    display: none;
+    flex-direction: row;
+    width:100%;
+}
+.card-to-do__learn-more.card-to-do__learn-more_active{
+    display: flex;
+}
+
+.card-to-do__time{
+    display:flex;
+    font-size:30px;
+}
+.card-to-do__discription{
+    display:flex;
+    font-size:15px;
+}
+.card-to-do__switch{
+    display:flex;
+    font-size:15px;
+}
+.card-to-do__time{
+    display:flex;
+    font-size:30px;
+}
+.switch-checkbox{
+    display:none;
+}
+.switch-label{
+    display:flex;
+    width:30px;
+    height:30px;
+    border-style:solid;
+    border-width:1px;
+    border-radius:50%;
+    background-color:var(--main-el-bg-color);
+    border-color:var(--main-el-b-color);
+}
+.switch-checkbox:checked + .switch-label{
+    background-color:grey;
+    border-color:lightgrey;
+}
+.indicator{
+    display:flex;
+    width:100%;
+}
+.set-indicator{
+    display:flex;
+    width:30%;
+    border-style:solid;
+    background-color: var(--main-bg-color);
+    border-color: var(--main-b-color);
+    color:var(--main-el-f-color);
+}
+.label-indicator{
+    color:var(--main-el-f-color);
+    display:flex;
+    width:70%;
+}
+.graphics{
+    display:flex;
+    width:100%;
+    overflow-x:scroll;
+    justify-content: flex-start;
+    align-items: flex-end;
+    min-height: 200px;
+}
+.graphics-column{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size:100%;
+    background-color:#4fc9af;
+    border-left-width: 1px;
+    border-color:#0e95ad;
+    border-style:solid;
+}
+
+.hidden{
+    display:none!important;
+}
+.sign-in{
+    display:flex;
+}
+
+
+
+.label-test{
+    display:flex;
+    width:100%;
+}

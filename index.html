@@ -1,0 +1,118 @@
+
+
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <meta name="mobile-web-app-cplaceholderapable" content="yes">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="HandheldFriendly" content="true">
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+        <audio class="audio" style="display:none"></audio>
+        <div class="virus-hack-app-sign-in">
+            <div class="select-diagnoz">
+                <div class="header standart-color">Выберите диагноз</div>
+                <select class="select standart-color">
+                </select>
+            </div>
+            <div class="sub-menu-start">
+                <div class="sub-menu__block">
+                    <div class="indicator">
+                        <div class="label-indicator">Верхнее давление</div>
+                        <input min="60" max="325" value="90" class="set-indicator-start" type="number" name="up">
+                    </div>
+                    <div class="indicator">
+                        <div  class="label-indicator" >Нижнее давление</div>
+                        <input min="30" max="200"  value="60" class="set-indicator-start" type="number" name="bottom">
+                    </div>
+                    <div class="indicator">
+                        <div  class="label-indicator" >Пульс</div>
+                        <input min="40" max="220"  value="70" class="set-indicator-start" type="number" name="pulse">
+                    </div>
+                    <div class="indicator">
+                        <div  class="label-indicator" >Температура</div>
+                        <input min="33" max="43" value="36.6" class="set-indicator-start" type="number" name="temperature">
+                    </div>
+                </div>
+            </div>
+        <button class="sign-in standart-color">Вход</button>  
+        </div>
+        <div class="virus-hack-app hidden">
+            <div class="header standart-color">Помошь от фонда "Веры"</div>             
+            <div class="content">
+                <div class="sub-menu sub-menu_active sub-menu-list_alt">
+                    <div class="header standart-color" style="order:9999">Открытые</div>
+                    <div class="to-do-complite">
+                        <div class="header standart-color">Завершенные</div>
+                    </div>
+                </div>
+                <div class="sub-menu sub-menu-accessibility">
+                    <div class="sub-menu__block">
+                        <div class="indicator">
+                            <div class="label-indicator">Верхнее давление</div>
+                            <input min="60" max="325" value="90" class="set-indicator" type="number" name="up">
+                        </div>
+                        <div class="indicator">
+                            <div  class="label-indicator" >Нижнее давление</div>
+                            <input min="30" max="200"  value="60" class="set-indicator" type="number" name="bottom">
+                        </div>
+                        <div class="indicator">
+                            <div  class="label-indicator" >Пульс</div>
+                            <input min="40" max="220"  value="70" class="set-indicator" type="number" name="pulse">
+                        </div>
+                        <div class="indicator">
+                            <div  class="label-indicator" >Температура</div>
+                            <input min="33" max="43" value="36.6" class="set-indicator" type="number" name="temperature">
+                        </div>
+                        <button class="button standart-color update-indicator">Обновить</button>
+                        <div class="title-up">График изменения верхнего давленя</div>
+                        <div class="graphics graphics-up"></div>
+                        <div class="title-bottom">График изменения нижнего давленя</div>
+                        <div class="graphics graphics-bottom"></div>
+                        <div class="title-bottom">График изменения пульса</div>
+                        <div class="graphics graphics-pulse"></div>
+                        <div class="title-bottom">График изменения температуры</div>
+                        <div class="graphics graphics-temperature"></div>
+                    </div>
+                    <div class="sub-menu__block sub-menu__tests">
+                        
+                    </div>  
+                </div>
+                <div class="sub-menu sub-menu-info"></div>
+                <div class="sub-menu sub-menu-phone">
+                    <a class="button standart-color" href="tel:103">103</a>
+                    <a class="button standart-color" href="tel:911">911</a>
+                    <a class="button standart-color" href="tel:+7(906)9594467">+7(906)9594467</a>
+                </div>
+            </div>
+
+            <div class="downmenu standart-color">
+                <button class="menu-btn menu-btn_active" value="list_alt">
+                    <span class="material-icons">
+                        list_alt
+                    </span>
+                </button>
+                <button class="menu-btn" value="accessibility">
+                    <span class="material-icons">
+                        accessibility
+                    </span>
+                </button>
+                <button class="menu-btn" value="info">
+                    <span class="material-icons">
+                        info
+                    </span>
+                </button>
+                <button class="menu-btn" value="phone">
+                    <span class="material-icons">
+                        phone
+                    </span>
+                </button>
+            </div>
+        </div>
+        <script src="http://192.168.0.102:8080/socket.io/socket.io.js"></script>
+        <script src="./index.js">
+        </script>
+    </body>
+</html>
