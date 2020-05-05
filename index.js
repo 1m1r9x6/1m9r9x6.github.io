@@ -1,16 +1,34 @@
-let indicators={}
 
 const audio=document.querySelector(".audio")
 const socket = io.connect('http://192.168.0.102:8080');
 
 
+class SaveLoadDB{
+    is(name){
+        if(localStorage.getItem(name))
+            return true;
+        return false;
+    }
+    save(name,value){
+        localStorage.setItem(name,JSON.stringify(value));
+    }
+    load(name){
+        return JSON.parse(localStorage.getItem(name));
+    }
+}
+const saveLoadDB = new SaveLoadDB();
+let indicators
+if(saveLoadDB.is("indicators"))
+    indicators=saveLoadDB.load("indicators")
+else    
+    indicators={}
 
 
 class Tests{
     renderAll(array){        
         const parent=document.querySelector(".sub-menu__tests");
         for(let item in array){
-            console.log(array[item]);
+            // console.log(array[item]);
             let testItem=`<div class="test">
             <div class="label-test standart-color">${item}</div>`;
             for(let quastion in array[item]){
@@ -39,7 +57,7 @@ class Tests{
                 questions.forEach(value=>{
                     resultSum+=+value.value;
                 })
-                console.log(resultSum);
+                // console.log(resultSum);
                 while (result.firstChild)  result.removeChild(result.firstChild);
                 result.insertAdjacentHTML("beforeend",`<div class="header standart-color">Результат теста ${resultSum}</div>`)
             })
@@ -130,7 +148,7 @@ class ToDoCard{
     }
     addEvents(array){
         this.complite=document.querySelector(".to-do-complite");
-        this.parent=document.querySelector(".sub-menu-list_alt");
+        this.parent=listAlt;
         document.querySelectorAll(".card-to-do").forEach((value,index,parent)=>{
             const switchCheckbox=value.querySelector(".switch-checkbox");
             switchCheckbox.addEventListener("change",()=>{
@@ -177,11 +195,6 @@ class Cards{
     constructor(){
         this.card={};
         this.isNotLoad=null;
-        socket.on("card",(data)=>{
-            this.card=JSON.parse(data)["list"];
-            this.isNotLoad=false;
-            this.callback(this.card);
-        });
     }
     loadData(diag,callback){
         this.callback=callback;
@@ -204,27 +217,19 @@ class SelectSingIn{
     }
 }
 
-const updateIndicator=document.querySelector(".update-indicator");
-const listAlt = document.querySelector(".sub-menu-list_alt");
-const toDoCardItem = new ToDoCardItem();
-const toDoCard = new ToDoCard();
-const cards=new Cards();
-const signIn=document.querySelector(".sign-in");
-const select=document.querySelector("select");
 
-document.querySelectorAll(".menu-btn").forEach((menuBtn,index,parent)=>{
-    menuBtn.addEventListener("click",()=>{
-        document.querySelector(".menu-btn_active").classList.remove("menu-btn_active");
-        menuBtn.classList.add("menu-btn_active");
-        document.querySelector(".sub-menu_active").classList.remove("sub-menu_active");
-        document.querySelector(".sub-menu-"+menuBtn.value).classList.add("sub-menu_active");
-    });
-});
-
+class Search{
+    render(data){
+        while(searchResult.firstChild) searchResult.removeChild(searchResult.firstChild)
+        for(let i in data){
+            searchResult.insertAdjacentHTML("beforeend",`<div class="standart-color"><a target="_blank" href="${data[i]}">${i}</a></div>`);
+        }
+    }
+}
+search=new Search();
 
 
 class GraphicsRender{
-    constructor(){}
     renderNew(nameData){
         let now = new Date().toString();
         indicators[now]={}
@@ -243,20 +248,152 @@ class GraphicsRender{
             }
             graphics.scrollBy(100,100);
         });
+        saveLoadDB.save("indicators",indicators);
+    }
+    renderAll(indicators){
+        // debugger;
+        for(let time in indicators){
+            for(let name in indicators[time]){
+                const value=indicators[time][name];
+                const graphics=document.querySelector(".graphics-"+name);
+                if(name!="temperature")
+                graphics.insertAdjacentHTML("beforeend",`
+                    <div class="graphics-column" style="min-height:${value}px">${value}</div>
+                `)
+                else{
+                    graphics.insertAdjacentHTML("beforeend",`
+                    <div class="graphics-column" style="min-height:${(+value-20)*7}px">${value}</div>
+                    `)  
+                }
+                graphics.scrollBy(100,100);
+            }
+        }
     }
 }
 
+class Gallery{
+    addPhoto(base64img,parent){
+        parent.insertAdjacentHTML("beforeend",`
+            <div class="photo-element">
+                <div class="photo" style="background-image:url(${base64img});">
+                </div>
+                <input class="button standart-color"type=text>
+            </div>
+        `)
+    }
+}
+
+
+class SubMenu{
+    addAllSubMenu(array,parent){
+        const menuInfo=document.querySelector(".sub-menu-info");
+        for(name in array)
+        {
+            console.log("arrname",array[name]);
+            console.log("name",name);
+            menuInfo.insertAdjacentHTML("afterbegin",`<button class="button-tile standart-color" value=".sub-menu-${name}">${array[name]}</button>`);
+            parent.insertAdjacentHTML("beforeend",`
+            <div class="sub-menu sub-menu-${name}">
+            </div>`);
+            socket.emit("get articles by name",array[name]);
+            socket.on("articles by name",(data)=>{
+                name=JSON.parse(data)["name"];
+                console.log(name);
+                data=JSON.parse(data)["list"];
+                console.log(data);
+                const sub=document.querySelector(`.sub-menu-${name}`)
+                for(let i in data){
+                    sub.insertAdjacentHTML("afterbegin",`<div class="standart-color"><a target="_blank" href="${data[i]}">${i}</a></div>`);
+                }
+            });
+
+        }
+    }
+    events(){
+        document.querySelectorAll(".button-tile").forEach(value=>{
+            value.addEventListener("click",()=>{
+                document.querySelector(".sub-menu_active").classList.remove("sub-menu_active");
+                document.querySelector(value.value).classList.add("sub-menu_active");
+            })
+        })
+    }
+}
+
+class MountsEvents{
+    constructor(){
+        this.data={};
+        if(saveLoadDB.is("eventsData"))
+        this.data=saveLoadDB.load("eventsData");
+        document.querySelectorAll(".calendar-day").forEach(btn=>{
+            // alert(1);
+            btn.addEventListener("click",()=>{
+                this.view(btn.value);
+            });
+        });
+    }
+    view(value){
+        let text = '';
+        if(this.data[value])
+        text = this.data[value]["text"]?this.data[value]["text"]:"";
+        document.querySelector(".virus-hack-app").insertAdjacentHTML('beforebegin',`
+        <div class="modal-event">
+            <div class="event">
+                <div class="header standart-color">${value}</div>
+                <textarea class="standart-color" style="height:200px;max-width:100%; min-width:100%;">${text}</textarea>
+                <button class="button standart-color">Сохранить и закрыть</button>
+            </div>
+        </div>` 
+        );
+        const parent = document.querySelector(".modal-event")
+        const save = parent.querySelector(".button");
+        save.addEventListener("click",()=>{
+            if(!this.data[value])
+            this.data[value]={};
+            const textarea = document.querySelector("textarea");
+            this.data[value]["text"]=textarea.value;
+            parent.parentNode.removeChild(parent);
+        });
+        saveLoadDB.save("eventsData",this.data);
+    }
+}
+
+const mountsEvents = new MountsEvents();
+const content=document.querySelector(".content");
+const subMenu=new SubMenu();
+const updateIndicator=document.querySelector(".update-indicator");
+const listAlt = document.querySelector(".to-do-current");
+const toDoCardItem = new ToDoCardItem();
+const toDoCard = new ToDoCard();
+const cards=new Cards();
+const signIn=document.querySelector(".sign-in");
+const select=document.querySelector("select");
+const searchButton=document.querySelector(".search-button");
+const searchResult=document.querySelector(".search-result");
+const searchWord=document.querySelector(".search-word");
+const galleryImg=document.querySelector(".sub-menu__photo");
+const gallery=new Gallery();
+const menuBtns=document.querySelectorAll(".menu-btn");
 const graphicsRender=new GraphicsRender();
+const selectSingIn=new SelectSingIn();
+
+menuBtns.forEach((menuBtn,index,parent)=>{
+    menuBtn.addEventListener("click",()=>{
+        document.querySelector(".menu-btn_active").classList.remove("menu-btn_active");
+        menuBtn.classList.add("menu-btn_active");
+        document.querySelector(".sub-menu_active").classList.remove("sub-menu_active");
+        document.querySelector(".sub-menu-"+menuBtn.value).classList.add("sub-menu_active");
+    });
+});
+
 
 updateIndicator.addEventListener("click",()=>{
     graphicsRender.renderNew(".set-indicator");
     socket.emit("update indicators",JSON.stringify(indicators))
+    saveLoadDB.save("indicators",indicators);
 });
 
 
-signIn.addEventListener("click",(e)=>{
-    const value = select.selectedOptions[0].value;
-    console.log(value);
+function loadData(value){
     cards.loadData(value,(array)=>{
         toDoCard.render(array);
         toDoCard.startTimers(array);
@@ -264,19 +401,102 @@ signIn.addEventListener("click",(e)=>{
     });
     document.querySelector(".virus-hack-app-sign-in").classList.add("hidden");
     document.querySelector(".virus-hack-app").classList.remove("hidden");
+}
+
+if (!(saveLoadDB.is("Диагноз")))
+signIn.addEventListener("click",(e)=>{
+    const value = select.selectedOptions[0].value;
+    saveLoadDB.save("Диагноз",value);
     graphicsRender.renderNew(".set-indicator-start");
+    loadData(value)
+})
+else{
+    loadData(saveLoadDB.load("Диагноз"))
+    if(saveLoadDB.is("indicators"))
+    graphicsRender.renderAll(saveLoadDB.load("indicators"));
+}
+
+socket.on("card",(data)=>{
+    cards.card=JSON.parse(data)["list"];
+    cards.isNotLoad=false;
+    cards.callback(cards.card);
 });
 
-selectSingIn=new SelectSingIn();
 
-socket.emit('get diagnozes','');
+searchButton.addEventListener("click",()=>{
+    const word=searchWord.value;
+    socket.emit("get articles search",word);
+});
+
+socket.on("articles search",data=>{
+    data=JSON.parse(data)["list"];
+    search.render(data);
+})
+
+socket.emit('get diagnozes');
 socket.on('diagnozes',(data)=>{
     selectSingIn.render(JSON.parse(data)["list"]);
 });
 
 socket.emit('get tests','null');
 socket.on('tests',(data)=>{
-    console.log(data);
     tests.renderAll(JSON.parse(data)["list"]);
     tests.addEventsAll();
 });
+
+function saveNewPhoto(evt){
+    const tgt = evt.target || window.event.srcElement, files = tgt.files;
+    if (FileReader && files && files.length) {
+    const fr = new FileReader();
+    fr.onload = function(){
+        gallery.addPhoto(fr.result,galleryImg);
+    }
+    fr.readAsDataURL(files[0]);
+    }
+}
+
+const input=document.querySelector(".set-photo");        
+input.onchange = saveNewPhoto;
+
+
+socket.emit('get articles names');
+socket.on('articles names',(data)=>{    
+    subMenu.addAllSubMenu(JSON.parse(data)["list"],content);
+    subMenu.events();
+});
+
+if(saveLoadDB.is("numbers")){
+    const parent=document.querySelector(".sub-menu-phone");
+    let numbers=saveLoadDB.load("numbers");
+    for(let i in numbers){
+        parent.insertAdjacentHTML("afterbegin",`<a class="button standart-color" href="tel:${i}">${numbers[i]}</a>`);
+    }
+}
+
+document.querySelector(".add-new-phone").addEventListener("click",()=>{
+    document.querySelector(".sub-menu-phone").insertAdjacentHTML('beforebegin',`
+    <div class="modal-event">
+        <div class="number">
+            <div class="header standart-color">Введите имя и номер</div>
+            <input type="text" value="0" placeholder="Имя" class="number-save-name input standart-color">
+            <input type="phone" value="0"  class="number-save-number input standart-color">
+            <button class="number-save-button standart-color">Сохранить и закрыть</button>
+        </div>
+    </div>` 
+    );
+    const save = document.querySelector(".number-save-button");
+    save.addEventListener("click",(e)=>{
+        const parent = document.querySelector(".modal-event")
+        const subMenu = document.querySelector(".sub-menu-phone")
+        let i1 = document.querySelector(".number-save-name");
+        let i2 = document.querySelector(".number-save-number");
+        let numbers={}
+        if(saveLoadDB.is("numbers"))
+        numbers=saveLoadDB.load("numbers");
+        numbers[`${i2.value}`]=i1.value;
+        saveLoadDB.save("numbers",numbers);
+        subMenu.insertAdjacentHTML("afterbegin",`<a class="button standart-color" href="tel:${i2.value}">${i1.value}</a>`);
+        console.log(`<a class="button standart-color" href="tel:${i2.value}">${i1.value}</a>`);
+        parent.parentNode.removeChild(parent);
+    });
+})

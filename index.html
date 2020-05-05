@@ -37,18 +37,73 @@
                     </div>
                 </div>
             </div>
-        <button class="sign-in standart-color">Вход</button>  
+        <button class="button sign-in standart-color">Вход</button>  
         </div>
         <div class="virus-hack-app hidden">
             <div class="header standart-color">Помошь от фонда "Веры"</div>             
             <div class="content">
-                <div class="sub-menu sub-menu_active sub-menu-list_alt">
-                    <div class="header standart-color" style="order:9999">Открытые</div>
+                
+                <div class="sub-menu sub-menu-to-do">
+                    <div class="to-do-current">
+                        <div class="header standart-color" style="order:9999">Открытые</div>
+                    </div>
                     <div class="to-do-complite">
-                        <div class="header standart-color">Завершенные</div>
+                        <div class="header standart-color" style="order:9999">Завершенные</div>
                     </div>
                 </div>
-                <div class="sub-menu sub-menu-accessibility">
+                
+                <div class="sub-menu sub-menu-calendar">
+                    <div class="header standart-color">Май</div>
+                    <div class="calendar standart-color">
+                        <div class="calendar-line calendar-line-0">
+                            <button class="calendar-day standart-color" value="Май 1">1</button>
+                            <button class="calendar-day standart-color" value="Май 2">2</button>
+                            <button class="calendar-day standart-color" value="Май 3">3</button>
+                            <button class="calendar-day standart-color" value="Май 4">4</button>
+                            <button class="calendar-day standart-color" value="Май 5">5</button>
+                            <button class="calendar-day standart-color" value="Май 6">6</button>
+                            <button class="calendar-day standart-color" value="Май 7">7</button>
+                        </div>
+                        <div class="calendar-line calendar-line-1">
+                            <button class="calendar-day standart-color" value="Май 8">8</button>
+                            <button class="calendar-day standart-color" value="Май 9">9</button>
+                            <button class="calendar-day standart-color" value="Май 10">10<buttonv>
+                            <button class="calendar-day standart-color" value="Май 11">11<buttonv>
+                            <button class="calendar-day standart-color" value="Май 12">12<buttonv>
+                            <button class="calendar-day standart-color" value="Май 13">13<buttonv>
+                            <button class="calendar-day standart-color" value="Май 14">14<buttonv>
+                        </div>
+                        <div class="calendar-line calendar-line-2">
+                            <button class="calendar-day standart-color" value="Май 15">15</button>
+                            <button class="calendar-day standart-color" value="Май 16">16</button>
+                            <button class="calendar-day standart-color" value="Май 17">17</button>
+                            <button class="calendar-day standart-color" value="Май 18">18</button>
+                            <button class="calendar-day standart-color" value="Май 19">19</button>
+                            <button class="calendar-day standart-color" value="Май 20">20</button>
+                            <button class="calendar-day standart-color" value="Май 21">21</button>
+                        </div>
+                        <div class="calendar-line calendar-line-3">
+                            <button class="calendar-day standart-color" value="Май 22">22</button>
+                            <button class="calendar-day standart-color" value="Май 23">23</button>
+                            <button class="calendar-day standart-color" value="Май 24">24</button>
+                            <button class="calendar-day standart-color" value="Май 25">25</button>
+                            <button class="calendar-day standart-color" value="Май 26">26</button>
+                            <button class="calendar-day standart-color" value="Май 27">27</button>
+                            <button class="calendar-day standart-color" value="Май 28">28</button>
+                        </div>
+                        <div class="calendar-line calendar-line-4">
+                            <button class="calendar-day standart-color" value="Май 29">29</button>
+                            <button class="calendar-day standart-color" value="Май 30">30</button>
+                            <button class="calendar-day standart-color" value="Май 31">31</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sub-menu sub-menu_active sub-menu-list-alt">
+                <button class="button-tile standart-color" value=".sub-menu-to-do">Список дел на сегодня</button>
+                <button class="button-tile standart-color" value=".sub-menu-calendar">Календарь дел</button>
+                </div>
+                <div class="sub-menu sub-menu-graphics">
                     <div class="sub-menu__block">
                         <div class="indicator">
                             <div class="label-indicator">Верхнее давление</div>
@@ -76,20 +131,39 @@
                         <div class="title-bottom">График изменения температуры</div>
                         <div class="graphics graphics-temperature"></div>
                     </div>
+                </div>
+                <div class="sub-menu sub-menu-tests">
                     <div class="sub-menu__block sub-menu__tests">
                         
-                    </div>  
+                    </div>
                 </div>
-                <div class="sub-menu sub-menu-info"></div>
+                <div class="sub-menu sub-menu-photo">
+                    <div class="sub-menu__block sub-menu__photo">
+                        <input type="file" class="set-photo" accept="image/*;capture=camera">
+                    </div>
+                </div>
+                <div class="sub-menu sub-menu-accessibility">
+                    <button class="button-tile standart-color" value=".sub-menu-photo">Добавить фотоотчет</button>
+                    <button class="button-tile standart-color" value=".sub-menu-tests">Пройти тестирование</button>
+                    <button class="button-tile standart-color" value=".sub-menu-graphics">Измерения</button>
+                </div>
+                <div class="sub-menu sub-menu-info">
+                    <div class="search">
+                        <input placeholder="Искать.." class="input standart-color search-word">
+                        <button class="button standart-color search-button">Поиск</button>
+                    </div>
+                    <div class="search-result"></div>
+                </div>
                 <div class="sub-menu sub-menu-phone">
                     <a class="button standart-color" href="tel:103">103</a>
                     <a class="button standart-color" href="tel:911">911</a>
                     <a class="button standart-color" href="tel:+7(906)9594467">+7(906)9594467</a>
+                    <button class="add-new-phone">Добавить номер телефона</button>
                 </div>
             </div>
 
             <div class="downmenu standart-color">
-                <button class="menu-btn menu-btn_active" value="list_alt">
+                <button class="menu-btn menu-btn_active" value="list-alt">
                     <span class="material-icons">
                         list_alt
                     </span>

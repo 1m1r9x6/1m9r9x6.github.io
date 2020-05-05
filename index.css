@@ -78,7 +78,18 @@ body{
     justify-content: center;
     max-height:24px;
 }
-
+.button-tile{
+    width:100%;
+    font-size:20px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.row{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+}
 .menu-btn{
     width:100%;
     min-height:100%;
@@ -115,8 +126,13 @@ body{
     min-height:100%;
     max-height:100%;
 }
-.sub-menu-list_alt{
-    flex-direction: column-reverse!important;
+.to-do-complite{
+    display:flex;
+    flex-direction:column-reverse;
+}
+.to-do-current{
+    display:flex;
+    flex-direction:column-reverse;
 }
 .card-to-do{
     display: flex;
@@ -195,6 +211,15 @@ body{
     display:flex;
     width:70%;
 }
+.photo{
+    display:flex;
+    width: 300px;
+    height: 200px;
+    background-size:cover;
+}
+.sub-menu__photo{
+    flex-direction: column;
+}
 .graphics{
     display:flex;
     width:100%;
@@ -221,9 +246,53 @@ body{
     display:flex;
 }
 
-
+.button-test{
+    display:flex;
+    font-weight:bold!important;
+}
+.sub-menu-calendar{
+    width:100%;
+    justify-content: center;
+    align-items: center;
+}
+.calendar{
+    display: flex;
+    flex-direction: column;
+}
+.calendar-line{
+    display:flex;
+    flex-direction: row;
+}
+.calendar-day{
+    display:flex;
+    width:30px;
+    min-height:30px;
+}
+.modal-event{
+    position:fixed;
+    width:100%;
+    height:100%;
+    left:0;
+    top:0;
+    background-color:var(--main-bg-color);
+    z-index: 10;
+}
 
 .label-test{
     display:flex;
+    width:Calc(100% - 5px);
+    font-weight:bold;
+    font-size:24px;
+}
+
+.test{
+    margin-bottom:40px;
+}
+.select{
     width:100%;
+    font-size:16px;
+}
+.input{
+    width:100%;
+    font-size:16px;
 }
